@@ -1,42 +1,89 @@
-# Task: Add SonarQube Scan with Jest Code Coverage to a React + TypeScript UI Application
+You are an expert React, TypeScript, Jest, and React Testing Library engineer.
 
-You are an expert in configuring SonarQube for React and TypeScript applications and integrating it into GitHub Actions.
+Your task is to implement or fix Jest test cases for this React application.
 
-Objective
+Mandatory Requirements
 
-Configure SonarQube analysis for the existing React + TypeScript UI application and enforce a Quality Gate based on Jest test coverage.
-
-Requirements
-
-1. GitHub Actions
+1. Do NOT skip any test.
    
-   - Add a new step named "SonarQube Scan - Jest Test Coverage" to the existing GitHub Actions workflow.
-   - The new step should integrate seamlessly with the current workflow and must not modify or break any existing deployment steps.
-   - Follow the same implementation pattern used in "deployment.yml", specifically the existing Sonar Scan step (if present), so the implementation remains consistent across workflows.
+   - Do not use "it.skip", "test.skip", "describe.skip", "xit", "xtest", or comment out any test.
+   - Every test must execute successfully.
 
-2. Jest Coverage
+2. Every test suite must complete execution within 30,000 ms (30 seconds).
    
-   - Use the existing Jest test cases and generated coverage reports.
-   - Configure SonarQube to consume the Jest coverage report (LCOV format).
-   - Ensure the workflow generates the coverage report before executing the SonarQube scan.
+   - Eliminate unnecessary waits.
+   - Mock all external dependencies.
+   - Avoid real API calls, timers, file system access, network requests, and unnecessary rendering.
 
-3. Quality Gate
+3. Every test suite must achieve at least 85% code coverage for:
    
-   - Configure SonarQube so that the Quality Gate enforces a minimum 80% code coverage.
-   - The GitHub workflow should fail if the SonarQube Quality Gate fails (including coverage below 80%).
+   - Statements
+   - Branches
+   - Functions
+   - Lines
 
-4. Project Configuration
+4. No source file should remain with 0% coverage.
    
-   - Read the existing "package.json".
-   - Add only the required dependencies and scripts for SonarQube integration.
-   - Create or update any required configuration files (such as "sonar-project.properties") using SonarQube best practices for a React + TypeScript project.
-   - Ensure the coverage path and source paths are configured correctly.
+   - Create meaningful tests for every uncovered component, hook, utility, and helper.
 
-5. Deliverables
+5. Increase coverage by testing:
    
-   - List all files that need to be created or modified.
-   - Show the complete changes for each file.
-   - Explain why each change is required.
-   - Ensure the solution follows industry best practices and does not impact the existing CI/CD pipeline.
+   - Success scenarios
+   - Error scenarios
+   - Edge cases
+   - Conditional branches
+   - User interactions
+   - Async flows
+   - Loading states
+   - Empty states
+   - Exception handling
 
-Do not change any existing deployment logic unless it is strictly required for the SonarQube integration.
+6. Follow React Testing Library best practices.
+   
+   - Test behavior instead of implementation.
+   - Prefer "screen" queries.
+   - Use "userEvent".
+   - Avoid unnecessary "act()".
+   - Clean up mocks properly.
+
+7. Mock all dependencies including:
+   
+   - API services
+   - Axios/fetch
+   - React Router
+   - Redux
+   - Context providers
+   - Custom hooks
+   - Browser APIs
+   - LocalStorage/SessionStorage
+   - Window methods
+   - Timers
+   - Date
+   - Environment variables
+
+8. Do not modify production source code unless absolutely required for testability. Prefer mocking instead.
+
+9. Do not reduce assertions just to make tests pass. Tests must validate actual behavior.
+
+10. If an existing test fails:
+    
+    - Identify the root cause.
+    - Fix the test.
+    - Do not skip or remove it.
+
+11. If coverage is below 85%, continue adding meaningful test cases until the target is reached.
+
+12. After completing each test suite:
+    
+    - Ensure all tests pass.
+    - Ensure there are no skipped tests.
+    - Ensure there are no flaky tests.
+    - Ensure execution time is under 30 seconds.
+    - Ensure coverage is at least 85%.
+
+13. The final solution must pass:
+    
+    - "npm test"
+    - "npm run test:coverage"
+
+Do not stop until all of the above requirements are satisfied.
