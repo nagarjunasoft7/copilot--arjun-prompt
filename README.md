@@ -1,3 +1,11 @@
+Continue generating Jest test cases only for the remaining uncovered files until every test suite achieves at least 85% statements, branches, functions, and lines coverage.
+
+Do not skip any tests.
+Do not modify production code unless absolutely necessary.
+Run until `npm run test:coverage` succeeds with all coverage thresholds met.
+
+
+
 You are an expert React, TypeScript, Jest, and React Testing Library engineer.
 
 Your task is to implement or fix Jest test cases for this React application.
