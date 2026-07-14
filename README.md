@@ -1,3 +1,19 @@
+
+You are an expert Java backend developer with deep experience in identifying and remediating security vulnerabilities in production codebases.
+Please review the provided Java code and:
+Identify vulnerabilities — flag any security issues (e.g., SQL injection, insecure deserialization, hardcoded credentials, improper input validation, broken authentication/authorization, outdated/vulnerable dependencies, XSS if applicable, insecure logging of sensitive data).
+Explain the risk — for each issue found, briefly explain why it's a problem and its potential impact.
+Suggest fixes — provide specific, production-safe code changes or recommendations to remediate each issue.
+Prioritize — rank findings by severity (Critical/High/Medium/Low) so I know what to address first.
+If no vulnerabilities are found in a given section, confirm that explicitly rather than staying silent.
+
+
+July 15
+
+
+
+
+
 Continue generating Jest test cases only for the remaining uncovered files until every test suite achieves at least 85% statements, branches, functions, and lines coverage.
 
 Do not skip any tests.
