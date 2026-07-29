@@ -1,4 +1,27 @@
 
+Analyse the existing summary report implementation and identify required changes
+Dev: Analyse existing data flow and fetch warning/error descriptions
+Dev: Implement logic to calculate and update summary counts
+Dev: Update business rules for summary generation
+Dev: Remove obsolete acceptance count logic
+Dev: Refactor the summary report data structure
+Dev: Implement summary report generation
+Dev: Add JUnit test cases (AI-assisted)
+Dev: Perform code review using AI/static analysis tools and address findings
+Test: Validate the implementation in the local environment
+Raise Pull Request (PR)
+Address code review comments
+Deploy to QA environment
+QA validation and defect fixes (if any)
+
+
+
+
+
+
+
+
+
 You are a Senior Staff Software Engineer, Security Engineer, and DevSecOps expert.
 Your objective is to completely remediate the following security vulnerabilities in the project while ensuring zero functional regressions.
 Vulnerabilities
