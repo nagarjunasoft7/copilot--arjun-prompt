@@ -1,4 +1,23 @@
 
+
+Task: Fix Warning Breakdown Report – Exclude Accepted Records
+Context:
+The Warning Breakdown Report currently pulls records from all statuses (Submitted, Accepted, Rejected, Other, Warning). This report is intended to show only Warning/Error records with a valid Reject Description.
+Issue:
+The first row in the current output (Reject Code -70) has a blank Reject Description. This is happening because that record is actually an Accepted record, not a Warning or Error record — Accepted records don't carry a reject/warning description, so they render as a blank row in this table.
+Required Fix:
+Filter the dataset so that the Warning Breakdown Report excludes any record whose status is "Accepted" (or more generally, any record where Reject Description is null/blank). Only records that are genuinely categorized as Warning or Error — i.e., those with a non-blank Reject Code and Reject Description — should be included in this report.
+Acceptance Criteria:
+No row in the Warning Breakdown table has a blank Reject Description.
+Accepted-status records are fully excluded from this specific report/view (they should still appear correctly under the "Accepted" tab elsewhere).
+Reject Code -70 (or any other code tied to an Accepted record) no longer appears in the Warning breakdown output.
+Paid Reject counts recalculate correctly after Accepted records are removed from this view.
+
+
+
+
+
+
 Analyse the existing summary report implementation and identify required changes
 Dev: Analyse existing data flow and fetch warning/error descriptions
 Dev: Implement logic to calculate and update summary counts
