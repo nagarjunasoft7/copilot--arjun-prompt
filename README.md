@@ -1,4 +1,11 @@
 
+The first row in the Warning Description section displays an acceptance/success record (Paid Reject Count: 2358, 94.70% of total), which is not associated with any Reject Code or Warning Description. This record should not be displayed in the reject/warning report. Only records with valid Reject Code and Warning Description should be shown.
+Expected Result:
+The report should display only reject/warning records.
+The acceptance/success record should be excluded from the grid.
+
+
+
 
 Task: Fix Warning Breakdown Report – Exclude Accepted Records
 Context:
