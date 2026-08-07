@@ -1,4 +1,26 @@
 
+I have a React UI page called [PageName/ComponentName]. 
+Please help me find:
+
+1. The main .tsx file for this page/component and its exact file path
+2. All child components (.tsx/.jsx files) that this page imports and renders
+3. All custom hooks (useXyz.ts/.tsx) used by this page or its children
+4. All related type/interface definition files (.types.ts or similar)
+5. Any associated CSS/SCSS/styled-components files
+6. Any API service/utility files this page calls (e.g., api.ts, services/*.ts)
+7. Any Redux/Context/state management files connected to this page (reducers, actions, context providers, slices)
+8. Any test files (.test.tsx/.spec.tsx) associated with this page or its components
+
+Please list them as a file tree or table showing:
+- File name
+- File path
+- Purpose/what it does in relation to [PageName]
+
+Search the entire codebase/repo for these references
+
+
+
+
 The first row in the Warning Description section displays an acceptance/success record (Paid Reject Count: 2358, 94.70% of total), which is not associated with any Reject Code or Warning Description. This record should not be displayed in the reject/warning report. Only records with valid Reject Code and Warning Description should be shown.
 Expected Result:
 The report should display only reject/warning records.
