@@ -1,4 +1,172 @@
+You are a senior Java/Spring Security security engineer. Fix the following security vulnerability in the existing repository without introducing regressions or unnecessary security changes.
 
+Vulnerability
+
+Scanner finding:
+
+- Vulnerability: Disabled Spring CSRF Protection
+- Scan Date: 06/22/2026
+- Repository: "optum-x-pbm/encounters-ix-services"
+- eGRC Vulnerability ID: "f7ad439ef54c3d1adcf6a3955514d1d1a96f3943cf65c8909e7b67252af8e53c"
+- Locations Found: 1
+- Reported issue: Spring Security CSRF protection is disabled.
+
+Your task
+
+First inspect the complete security configuration and determine exactly why the scanner reported CSRF protection as disabled.
+
+Search the entire repository for:
+
+- "csrf().disable()"
+- ".csrf(csrf -> csrf.disable())"
+- ".csrf(AbstractHttpConfigurer::disable)"
+- "csrf.disable"
+- "CsrfConfigurer"
+- "SecurityFilterChain"
+- "WebSecurityConfigurerAdapter"
+- "@EnableWebSecurity"
+- "@EnableMethodSecurity"
+- custom authentication/security filters
+- session configuration
+- JWT/OAuth2 configuration
+- REST controllers and API endpoints
+- CORS configuration
+- any security-related tests
+
+Do NOT immediately change the code.
+
+Step 1 — Determine the application security model
+
+Establish whether this application is:
+
+1. Browser/session-based,
+2. Stateless REST API,
+3. JWT/OAuth2 bearer-token based,
+4. A hybrid application.
+
+Use the actual code/configuration to determine this.
+
+Pay particular attention to:
+
+- "SessionCreationPolicy"
+- authentication mechanism
+- cookies
+- Authorization headers
+- JWT handling
+- login endpoints
+- browser-facing endpoints
+- REST endpoints
+- CSRF tokens
+- CORS
+- Spring Security version
+- Spring Boot version
+
+Step 2 — Validate whether disabling CSRF is actually unsafe
+
+Explain why the current configuration disables CSRF and whether that configuration is appropriate for this application's authentication model.
+
+Do not assume that every REST API must enable CSRF.
+
+If the application is genuinely stateless and authenticates exclusively using bearer tokens in the "Authorization" header, explain whether CSRF protection is necessary.
+
+If authentication uses cookies/session state or the application has browser-facing authenticated endpoints, CSRF protection must be implemented appropriately.
+
+Step 3 — Implement the safest minimal fix
+
+Fix the vulnerability using the existing Spring Security architecture.
+
+Requirements:
+
+- Prefer the smallest production-safe code change.
+- Do not rewrite the complete security configuration.
+- Do not downgrade Spring Boot or Spring Security.
+- Do not introduce deprecated APIs.
+- Follow the Spring Security version already used by the project.
+- Do not weaken authentication or authorization.
+- Do not remove existing security controls.
+- Do not blindly enable CSRF if doing so would break legitimate stateless APIs.
+- If CSRF must remain disabled for specific stateless API endpoints, use the most appropriate Spring Security configuration to make the security intent explicit and narrowly scoped.
+- If CSRF must be enabled, configure it correctly rather than merely deleting ".disable()".
+- Preserve existing CORS, authentication, authorization, headers, session management, and exception handling behavior.
+
+Step 4 — Check for multiple security configurations
+
+Search for all "SecurityFilterChain" beans and other security configuration classes.
+
+Make sure the fix applies to the actual filter chain used by the vulnerable endpoints.
+
+Do not fix only the first occurrence if another configuration is responsible for the scanner finding.
+
+Step 5 — Add/update tests
+
+Add or update security tests that prove the vulnerability is properly addressed.
+
+Tests should verify the appropriate CSRF behavior for the application's actual security model.
+
+For example, where applicable:
+
+- authenticated browser/session request without CSRF token → rejected
+- authenticated request with valid CSRF token → accepted
+- stateless bearer-token API → continues to work correctly
+- existing authentication still works
+- existing authorization rules still work
+- public endpoints remain accessible
+- CORS behavior remains unchanged
+
+Use the project's existing testing framework and conventions.
+
+Do not create unnecessary tests unrelated to this vulnerability.
+
+Step 6 — Check for regressions
+
+Run the relevant unit/integration/security tests.
+
+Also verify compilation.
+
+If Maven is used, use the project's existing Maven configuration and commands.
+
+Do not modify unrelated dependencies unless absolutely necessary.
+
+Step 7 — Security review
+
+Before finalizing, review the change specifically for:
+
+- CSRF
+- authentication
+- authorization
+- session fixation
+- CORS
+- XSS-related security headers
+- cookie-based authentication
+- JWT/bearer-token handling
+
+Do not expand the scope into unrelated vulnerability remediation.
+
+Expected output
+
+After inspecting and modifying the code, provide:
+
+1. Root cause of the vulnerability.
+2. Exact file(s) changed.
+3. Exact security configuration that caused the finding.
+4. Why the original configuration was vulnerable or why the scanner considered it vulnerable.
+5. The implemented fix and why it is appropriate.
+6. Tests added/modified.
+7. Test results.
+8. Any remaining security considerations.
+9. A concise explanation suitable for the security/eGRC remediation record.
+
+IMPORTANT:
+
+Do not simply suppress or ignore the scanner finding.
+
+Do not add comments such as "// NOSONAR" or scanner exclusions unless there is a documented false-positive reason.
+
+Do not make unrelated refactoring changes.
+
+If the repository's architecture shows that CSRF must remain disabled because the application is a genuinely stateless bearer-token API, do not force-enable CSRF merely to satisfy the scanner. Instead, explain the security rationale and identify the safest configuration/remediation that satisfies the scanner without breaking the application's security model.
+
+Before making changes, show me the relevant security configuration and your proposed fix. Then implement the fix only after validating the application's authentication/session model.
 
 
 
