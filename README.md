@@ -1,4 +1,45 @@
+Role & Context:
+You are a Senior Java/Spring Boot Developer working on an enterprise codebase.
+I need to complement an existing manual controller-based file processing flow with an automated background process.
+Task:
+Design and implement an automated file ingestion service that reads a file from a specified UNC network path, validates it, and processes it into the database using the exact same business logic and coding conventions already present in the project.
+Requirements & Specifications:
+Existing Reference Flow:
+Manual Endpoint: @RequestMapping("/tracking/taxonomy-num") in TaxonomyNumController
+Workspace Path for Reference: C:\Users\ngangala\encounter\gitworkspace\gmrp\orx-gmrp-LoadMemberToReprocessClaims\src
+File Paths:
+Actual Path (Production/NAS): \\nasv0601.uhc.com\orx_hixcaid_ops\Medicaid Provider Participation Process MP3\GMRP\INPUT\SC
+Testing Path (Local Sandbox): C:\Users\ngangala\encounter\gitworkspace\sprint18\junction
+Core Functionality Needed:
+Automated Triggering: Use Spring @Scheduled or a dedicated File Watcher/Listener service to periodically check the directory for new incoming files (make the file path configurable via application.properties or application.yml).
+Decoupled Architecture: Refactor the existing upload logic in TaxonomyNumController so that the validation, parsing, and database persistence logic are extracted into a shared Service layer (TaxonomyNumProcessingService). Both the controller and the new automated scheduler should call this service to keep the code DRY.
+File Handling:
+Read files matching the expected extension/pattern.
+Ensure robust file locking checks before reading (prevent reading incomplete/currently writing files).
+Archive or move processed/failed files to designated target directories (e.g., /PROCESSED, /ERROR).
+Error Handling & Logging: Log errors clearly using SLF4J/Logback, handle UNC network path connectivity/access exceptions gracefully, and ensure database transactions rollback safely on failure (@Transactional).
+Step-by-Step Deliverable Request:
+Phase 1: High-Level Architecture & Design
+Before writing full implementation code, outline:
+The proposed component structure (Service layer refactoring, Scheduler class, File Utility class, Configuration properties).
+The file ingestion lifecycle flow (Detection -> Lock Check -> Validation -> Processing -> Archiving/Cleanup).
+Proposed configuration structure for application.yml/properties (environment-switchable paths for local vs. actual network paths).
+Phase 2: Code Implementation
+Provide clean, production-ready Java code following Spring Boot best practices for:
+Configuration: Externalized properties configuration.
+Service Layer: Refactored/Extracted processing service class.
+Scheduled Ingestion Service: Spring @Scheduled component with UNC path handling.
+Updated Controller: Updated existing TaxonomyNumController consuming the refactored service layer.
+Why this prompt works well:
+Separation of Concerns (Design First): Forces the AI to show you the package/class architecture and refactoring approach before writing code, saving you from refactoring bad suggestions later.
+Decoupling Strategy: Explicitly instructs the AI to extract common logic into a shared service so you don't duplicate code between the manual web upload and the batch scheduler.
+Enterprise Ingestion Realities: Explicitly covers file locks, UNC network share quirks, transaction safety, and archiving (moving files to /PROCESSED or /ERROR), which are critical when automating manual batch uploads.
 
+
+
+
+
+******
 
 System Role & Objective
 You are a Senior Java Developer and an expert in Unit Testing using JUnit 5, Mockito, and AssertJ.
