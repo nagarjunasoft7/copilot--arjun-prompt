@@ -1,3 +1,358 @@
+
+You are a Senior Java Developer, Spring Boot/Microservices expert, and Application Security Engineer. I need you to remediate the following security vulnerability in an existing Java/Spring application.
+
+1. Vulnerability Details
+
+Full Vulnerability: CVE-2026-59313 — Spring Core
+
+Affected Component: Spring Framework / Spring Core
+
+Vulnerability:
+Spring MVC applications using the functional web framework are vulnerable to stream corruption when using Server-Sent Events (SSE).
+
+Affected Spring Framework versions:
+
+- Spring Framework 7.0.0 – 7.0.8
+- Spring Framework 6.2.0 – 6.2.5
+- Spring Framework 6.1.0 – 6.1.28
+- Spring Framework 6.0.0 – 6.0.30
+- Spring Framework 5.3.0 – 5.3.49
+
+Required fixed versions:
+
+- Spring Framework 7.0.8.1
+- Spring Framework 6.2.20
+- Spring Framework 6.1.29
+
+Reference: NVD — CVE-2026-59313
+
+2. Current Problem
+
+This vulnerability was identified as a critical security vulnerability in our application.
+
+As part of the security remediation, the following property was removed from the build configuration:
+
+<spring-security.version>7.0.4</spring-security.version>
+
+After removing this line, the application build is failing with compilation/dependency errors.
+
+I will provide the complete build error below:
+
+[PASTE COMPLETE BUILD ERROR HERE]
+
+3. Your Responsibilities
+
+Analyze the project carefully and provide a production-safe security fix.
+
+Do NOT blindly change dependency versions.
+
+First determine:
+
+1. Which Spring Boot version the application is using.
+2. Which Spring Framework version is currently resolved.
+3. Which Spring Core version is actually present in the dependency tree.
+4. Which Spring Security version is currently resolved.
+5. Whether "spring-security.version" is being used as an override by the project.
+6. Whether Spring Boot's dependency management/BOM is controlling Spring Framework versions.
+7. Whether removing "spring-security.version" causes Spring Security dependencies to resolve to an incompatible version.
+8. Whether the build failure is directly related to Spring Security, Spring Framework, Spring Core, or dependency-version incompatibility.
+9. Whether any transitive dependency is forcing an affected Spring Framework version.
+
+4. Important Security Rule
+
+The objective is to remediate CVE-2026-59313 without unnecessarily upgrading or downgrading unrelated dependencies.
+
+Do NOT simply restore:
+
+<spring-security.version>7.0.4</spring-security.version>
+
+unless you can prove that it is required and compatible with the Spring Framework version selected for the security fix.
+
+Do NOT downgrade Spring Framework to an affected version just to make the build pass.
+
+The final dependency graph must contain a non-vulnerable Spring Framework version.
+
+5. Compatibility Rules
+
+Before recommending a version, verify compatibility between:
+
+- Spring Boot
+- Spring Framework
+- Spring Core
+- Spring Web
+- Spring MVC
+- Spring Security
+- Spring Security Core
+- Spring Security Web
+- Spring Security Config
+- Spring Security OAuth2 components, if present
+- Jakarta/Java version
+- Other Spring modules
+
+Maintain Spring Framework module version consistency.
+
+For example, do not create a dependency graph where:
+
+spring-core = X
+spring-web = Y
+spring-context = Z
+
+are incompatible versions.
+
+Prefer the Spring Boot-managed dependency versions/BOM whenever possible rather than manually overriding individual Spring Framework modules.
+
+6. Dependency Management Rules
+
+Inspect:
+
+- "pom.xml"
+- Parent POM
+- "<dependencyManagement>"
+- Spring Boot parent/BOM
+- Maven profiles
+- Properties
+- Imported BOMs
+- Direct Spring dependencies
+- Transitive Spring dependencies
+
+Use Maven dependency analysis such as:
+
+mvn dependency:tree
+
+and, where useful:
+
+mvn help:effective-pom
+
+Identify exactly why the vulnerable version is being resolved.
+
+If a version override is required, explain why it is necessary and what compatibility risks it introduces.
+
+7. Spring Security Version Rule
+
+The following property was previously present:
+
+<spring-security.version>7.0.4</spring-security.version>
+
+Do not assume that this property controls the Spring Framework/Spring Core vulnerability.
+
+Clearly explain the distinction between:
+
+Spring Security
+
+and:
+
+Spring Framework / Spring Core
+
+Determine whether the property was intentionally overriding the Spring Security version and whether removing it causes the current build failure.
+
+If the application requires Spring Security 7.x, determine the correct Spring Security version compatible with the application's Spring Boot and Spring Framework versions.
+
+Do not mix incompatible major/minor Spring Security and Spring Framework versions.
+
+8. Minimal-Change Principle
+
+Apply the minimum required changes to remediate the vulnerability.
+
+Do not perform unrelated upgrades such as:
+
+- Java upgrade
+- Spring Boot major-version upgrade
+- Spring Security major-version upgrade
+- Maven upgrade
+- Plugin upgrades
+- Dependency cleanup
+- Code refactoring
+
+unless they are genuinely required for compatibility or security remediation.
+
+If an upgrade is unavoidable, explicitly explain:
+
+Why it is required → What changes → What impact it has → How to validate it.
+
+9. Build Failure Analysis
+
+Analyze the complete build error I provide.
+
+For every significant error, explain:
+
+1. Root cause
+2. Which dependency/version caused it
+3. Whether it is related to removing "spring-security.version"
+4. Whether it is related to CVE remediation
+5. Exact fix
+
+Do not provide speculative fixes.
+
+If the information is insufficient, identify the exact command/output/file required to confirm the root cause instead of guessing.
+
+10. Required Maven Validation
+
+After proposing the fix, validate the dependency graph conceptually and provide commands to verify it.
+
+Use:
+
+mvn dependency:tree
+
+and preferably:
+
+mvn dependency:tree -Dincludes=org.springframework
+
+Also verify Spring Security:
+
+mvn dependency:tree -Dincludes=org.springframework.security
+
+Check the effective dependency management:
+
+mvn help:effective-pom
+
+Then perform:
+
+mvn clean verify
+
+If the project has tests:
+
+mvn clean test
+
+11. Security Verification
+
+After the fix, explicitly verify that:
+
+- No affected Spring Framework version remains.
+- "spring-core" resolves to a fixed/non-vulnerable version.
+- Related Spring Framework modules are version-compatible.
+- No transitive dependency reintroduces the vulnerable version.
+- Spring Security remains compatible.
+- Existing application functionality is preserved.
+- SSE/functional web functionality is not broken.
+- Existing security configuration continues to work.
+
+If a dependency scanner is available, recommend running it after the change.
+
+Examples:
+
+mvn dependency:tree
+
+and the organization's approved SCA/security scanner.
+
+12. Do Not Suppress the Vulnerability
+
+Do NOT recommend:
+
+- Suppressing CVE-2026-59313
+- Adding an ignore rule
+- Disabling security scanning
+- Excluding the vulnerable dependency without understanding its replacement
+- Marking the vulnerability as false positive
+- Using Maven exclusions merely to make the scanner pass
+
+The actual dependency must be upgraded to a fixed version or to a Spring Boot release that manages a fixed version.
+
+13. Code Changes
+
+Prefer dependency/configuration changes over application-code changes.
+
+Only modify Java/application code if the vulnerability remediation genuinely requires it.
+
+If code changes are required:
+
+- Show the exact affected class/method.
+- Explain why the change is required.
+- Preserve existing business logic.
+- Do not introduce unrelated refactoring.
+- Maintain backward compatibility wherever possible.
+
+14. Final Response Format
+
+Provide your analysis in exactly this structure:
+
+A. Current Dependency Analysis
+
+Show:
+
+Spring Boot:
+Spring Framework:
+Spring Core:
+Spring Web:
+Spring Security:
+Java:
+
+B. Root Cause
+
+Explain exactly why the build fails after removing:
+
+<spring-security.version>7.0.4</spring-security.version>
+
+C. CVE Root Cause
+
+Explain which dependency is vulnerable and why the current version is affected.
+
+D. Recommended Fix
+
+Provide the exact Maven/POM changes required.
+
+Show the before and after configuration.
+
+E. Version Compatibility
+
+Provide a table:
+
+Component| Current| Recommended| Reason
+Spring Boot| | | 
+Spring Framework| | | 
+Spring Core| | | 
+Spring Security| | | 
+
+F. Build Validation
+
+Provide the exact commands I should execute.
+
+G. Security Validation
+
+Explain how to confirm CVE-2026-59313 is no longer present.
+
+H. Regression Risk
+
+Mention any possible impact on:
+
+- Spring MVC
+- SSE
+- Functional web framework
+- Spring Security
+- REST APIs
+- Existing microservices functionality
+
+I. Final Recommended Patch
+
+Provide the smallest production-safe patch that:
+
+1. Fixes CVE-2026-59313.
+2. Makes the build pass.
+3. Keeps Spring dependencies compatible.
+4. Does not introduce unnecessary upgrades.
+5. Does not suppress the vulnerability.
+6. Preserves existing application behavior.
+
+15. Critical Instruction
+
+Do not give me a generic solution.
+
+Analyze the actual POM and the complete Maven build error that I provide.
+
+If the POM or dependency tree is required to determine the correct version, explicitly request it.
+
+Do not invent dependency versions or assume the Spring Boot version.
+
+The final recommendation must be based on the project's actual dependency hierarchy and Maven dependency resolution.
+
+
+
+
+
+******
+
+
+
+
 Role & Context:
 You are a Senior Java/Spring Boot Developer working on an enterprise codebase.
 I need to complement an existing manual controller-based file processing flow with an automated background process.
