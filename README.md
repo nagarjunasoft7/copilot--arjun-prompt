@@ -1,3 +1,33 @@
+The 15 methods listed below are public methods in "EncounterServiceImpl.java".
+
+Write comprehensive unit test cases for all 15 public methods in "EncounterServiceImplTest.java".
+
+Requirements:
+
+- Cover all 15 public methods.
+- Include positive, negative, and edge-case scenarios wherever applicable.
+- Mock all external dependencies appropriately.
+- Verify method outputs, interactions, and exceptions.
+- Aim for high code and branch coverage.
+- Follow the existing testing framework, coding standards, and patterns used in the project.
+- Do not modify the production code in "EncounterServiceImpl.java".
+- Provide the complete test implementation that can be added to "EncounterServiceImplTest.java".
+
+Methods to cover:
+
+1. ...
+2. ...
+3. ...
+   ...
+4. ...
+
+
+
+
+
+
+
+
 
 You are a Senior Java Developer, Spring Boot/Microservices expert, and Application Security Engineer. I need you to remediate the following security vulnerability in an existing Java/Spring application.
 
