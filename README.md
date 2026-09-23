@@ -1,3 +1,12 @@
+
+Thank you, Hemant and Sneha, for effectively managing and coordinating the team, prioritising the work, and keeping everything on track.
+
+Your strong technical and functional knowledge, along with your guidance and support, has been a great help to the team. Really appreciate your leadership, collaboration, and commitment. Keep up the great work!
+
+
+
+
+
 The 15 methods listed below are public methods in "EncounterServiceImpl.java".
 
 Write comprehensive unit test cases for all 15 public methods in "EncounterServiceImplTest.java".
