@@ -1,4 +1,70 @@
 
+
+I have a Java/Spring Boot backend endpoint in a Controller class. I will provide the complete endpoint details, including:
+Controller class name
+Method name
+HTTP method and mapping (@GetMapping, @PostMapping, etc.)
+Path/URL
+Method parameters such as @RequestParam, @PathVariable, @RequestBody, etc.
+The frontend application is developed using React JS.
+I want you to analyze the provided backend endpoint and trace where and how this endpoint is being called from the React JS frontend.
+Please identify:
+React JS file(s) where this backend endpoint is called.
+The exact API/service/helper method used to make the call.
+The React component(s) or page(s) that invoke that API/service method.
+How each backend parameter (@RequestParam, @PathVariable, request body, etc.) is constructed and passed from React.
+The complete flow: React Component → React API/Service → HTTP Request → Java Controller Endpoint
+Identify whether the API call is made using fetch, axios, a custom HTTP client, or any other mechanism.
+Identify the user action or lifecycle event that triggers the API call, such as:
+Button click
+Page load
+useEffect
+Form submission
+Navigation
+Other event
+If the endpoint is called indirectly through multiple methods, trace the complete call chain.
+Identify any constants, configuration files, environment variables, or API base URLs involved in constructing the endpoint URL.
+Show the relevant React JS code snippets and explain them clearly.
+If the endpoint is not called anywhere in the React application, explicitly state that.
+If there are multiple places where the endpoint is called, list all identified usages separately.
+Output format
+Please provide the analysis in this format:
+Backend Endpoint
+Controller:
+Method:
+HTTP Method:
+Endpoint:
+Parameters:
+Frontend Usage
+React File
+Component/Method
+API/Service Method
+Trigger
+Endpoint/URL
+Call Flow
+React Component
+      ↓
+React Method/Event
+      ↓
+API/Service Method
+      ↓
+HTTP Client (Axios/Fetch/etc.)
+      ↓
+Backend Endpoint
+      ↓
+Java Controller Method
+Parameter Mapping
+Java Parameter
+React Variable
+How Value Is Created
+Detailed Explanation Explain each step of the call flow and mention the exact file names and method names.
+
+
+
+
+
+
+
 Thank you, Hemant and Sneha, for effectively managing and coordinating the team, prioritising the work, and keeping everything on track.
 
 Your strong technical and functional knowledge, along with your guidance and support, has been a great help to the team. Really appreciate your leadership, collaboration, and commitment. Keep up the great work!
