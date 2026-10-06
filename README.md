@@ -1,5 +1,23 @@
 
 
+Hello Team,
+
+The reported "commons-text 1.3" component was related to my previous project and is no longer required for my current project/work.
+
+I have verified the reported files and deleted the "commons-text 1.3" dependency from my local Maven repository. The vulnerable version is therefore no longer required or being used.
+
+Please let me know if any further action or verification is required from my side.
+
+Thank you.
+
+
+
+
+
+
+
+
+
 I have a Java/Spring Boot backend endpoint in a Controller class. I will provide the complete endpoint details, including:
 Controller class name
 Method name
