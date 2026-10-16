@@ -1,4 +1,108 @@
 
+Role
+
+You are a Senior React Developer with expertise in React.js, UI design, frontend development, and debugging complex form-based applications.
+
+Requirement: Fix Start and End Position Calculation in Field Mapping
+
+1. Navigation Flow
+
+Follow the below navigation path to access the Layout Field Mapping page:
+
+Submission → Layout Configuration → Select a Layout → Edit Mode → Edit Layout Configuration → Edit Field Mapping
+
+1. From the top menu, select Submission → Layout Configuration.
+2. A list of layout details will be displayed.
+3. Select a specific layout and open it in Edit mode.
+4. On the Edit Layout Configuration page, click Edit Layout Configuration.
+5. Click Edit Field Mapping to view the layout field records.
+
+Each field record provides the following actions:
+
+- Delete
+- Insert Before
+- Insert After
+
+2. Issue Description
+
+Currently, when clicking Insert Before or Insert After, the Start Position and End Position of the newly inserted record and the subsequent records are not being updated correctly.
+
+The position values must be calculated automatically based on the selected Section ID, the existing records, and the Size of each field.
+
+3. Expected Behaviour
+
+When a user clicks Insert Before or Insert After, the application should insert a new record at the appropriate location.
+
+Once the user selects a Section ID for the new record, the application must automatically calculate its Start Position and End Position based on the existing field mappings.
+
+The calculation must follow these rules:
+
+1. The Start Position of the new record must be determined by its insertion location and the position sequence of the selected Section ID.
+2. The End Position must be calculated using the field's Size.
+3. All subsequent records within the same Section ID must have their Start Position and End Position recalculated accordingly.
+4. Each subsequent record must retain its original Size, and its new End Position must be calculated from its updated Start Position and Size.
+5. Records belonging to other Section IDs must not be affected.
+6. The position calculations must remain consistent after multiple insertions or deletions.
+7. The existing field mappings must remain unchanged unless their positions need to be adjusted to accommodate the insertion or deletion.
+
+4. Example Scenario
+
+Consider the following existing records for a specific Section ID.
+
+Record| Size| Start Position| End Position
+Record 1| 2| 2| 2
+Record 2| 2| 3| 4
+Record 3| 5| 5| 9
+Record 4| 2| 10| 11
+
+Scenario: Insert Before Record 3
+
+When the user clicks Insert Before on Record 3 and selects the same Section ID, the new record should be inserted before Record 3.
+
+Assume the new record has a Size of 3.
+
+The expected behaviour is:
+
+Record| Size| Start Position| End Position
+Record 1| 2| 2| 2
+Record 2| 2| 3| 4
+New Record| 3| 5| 7
+Record 3| 5| 8| 12
+Record 4| 2| 13| 14
+
+Important: The example illustrates the expected position-shifting behaviour. Follow the application's existing position conventions and field-size calculation rules when implementing the fix.
+
+5. Implementation Requirements
+
+- Identify and debug the existing logic responsible for inserting records and calculating Start Position and End Position.
+- Ensure the calculations are triggered when the Section ID or Size of the newly inserted record changes, as appropriate.
+- Recalculate the affected records in the correct order after Insert Before, Insert After, and Delete operations.
+- Apply the updates only to records belonging to the relevant Section ID.
+- Ensure the UI immediately reflects the recalculated values without requiring a page refresh.
+- Preserve existing functionality, component structure, validation rules, and styling.
+- Avoid unnecessary changes to unrelated components or business logic.
+- Handle edge cases such as inserting the first or last record, changing the Section ID, and deleting a record.
+
+6. Expected Outcome
+
+Fix the Start Position and End Position calculation so that field mappings remain sequential and consistent after insertions and deletions.
+
+Before making changes, inspect the existing React components, state management, and position-calculation logic. Identify the root cause, implement the smallest appropriate fix, and explain the changes made.
+
+Please provide the updated code and a brief explanation of the fix, including how the position calculations work and which files were modified.
+
+😊😊😊😊
+
+
+
+
+
+
+
+
+
+
+
 
 Hello Team,
 
