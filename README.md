@@ -1,4 +1,44 @@
 
+You are a Senior Java Developer with expertise in Java, Spring Boot, file processing, database operations, and application logging.
+
+Scenario:
+
+The same Taxonomy Excel input file has been processed twice.
+
+- During the first execution, all records were processed and inserted into the database successfully.
+- During the second execution, the same file was processed again.
+- The duplicate-check mechanism worked as expected, and no duplicate records were inserted during the second execution.
+
+Issue:
+
+Although the duplicate handling is working correctly, the application logs are not clearly reflecting what happened.
+
+Someone reviewing the logs might assume that the records were processed and inserted successfully during the second execution, which is misleading.
+
+Expected changes:
+
+1. Review the existing logging implementation in the Taxonomy file processing flow.
+2. Update the logs to clearly distinguish between:
+   - Total records read from the Excel file.
+   - Records successfully inserted into the database.
+   - Duplicate records identified and skipped.
+   - Records failed during processing, if any.
+3. When the same file is processed again and all records are duplicates, the logs should explicitly indicate that the file was processed successfully, but no new records were inserted because all records were identified as duplicates.
+4. Ensure the log messages accurately represent the actual database operations.
+5. Follow the existing logging conventions and avoid unnecessary code changes.
+
+Expected log example for the second execution:
+
+"Taxonomy file processing completed successfully. Total records read: 100, Inserted: 0, Skipped as duplicates: 100, Failed: 0."
+
+Please analyze the existing implementation and make the necessary changes to ensure the logs provide clear, accurate, and meaningful information without impacting the existing file-processing or duplicate-validation logic.
+
+
+€€€€€€€€¥¥
+
+
+
+
 
 I am a Senior Java and React Full-Stack Developer and want to transition into an AI Agentic Engineer or AI Agent Architect role.
 
